@@ -1,5 +1,11 @@
 # oEmbed Changelog
 
+## 2.0.4 - 2017-12-22
+
+### Fixed
+- Refactored past updates and fixed composer.json version
+- Added recursive function
+
 ## 2.0.3 - 2017-12-20
 
 ### Added

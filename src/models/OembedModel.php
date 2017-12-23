@@ -46,7 +46,7 @@ class OembedModel extends Model
 
     public function __toString()
     {
-        return "".$this->getUrl();
+        return (string)$this->getUrl();
     }
 
     /**
@@ -67,35 +67,25 @@ class OembedModel extends Model
         ];
     }
 
-    public function getUrl()
+    /**
+     * Gets URL, also handles recursive fetching.
+     *
+     * @param mixed $value
+     * @return string
+     */
+    public function getUrl($value = null)
     {
+        $value = $value !== null ? $value: $this->url;
 
-        $value = $this->url;
-
-        if (is_string($value)) {
-            $decValue = json_decode($value, true);
-            if($decValue) {
-                $value = $decValue;
-            }
+        if (is_string($value) && $decValue = json_decode($value, true)) {
+            $value = $decValue;
         }
 
-        if(is_array($value)) {
-            if (isset($value['url'])) {
-                if(is_array($value['url'])) {
-                    if(is_array($value['url']['url'])) {
-                        if(is_array($value['url']['url']['url'])) {
-                            return $value['url']['url']['url']['url'];
-                        }
-                        return $value['url']['url']['url'];
-                    }
-                    return $value['url']['url'];    
-                }
-                return $value['url'];
-            }
-            return null;
+        if(is_array($value) && array_key_exists('url', $value)) {
+            return $this->getUrl($value['url']) ?: '';
         }
 
-        return $value ? $value : null;
+        return $value ?: '';
     }
 
     /**

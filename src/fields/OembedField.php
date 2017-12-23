@@ -78,12 +78,9 @@ class OembedField extends Field
      */
     public function normalizeValue($value, ElementInterface $element = null)
     {
-        if (is_string($value)) {
-            $decValue = json_decode($value, true);
-            if($decValue) {
-                if (isset($decValue['url'])) {
-                    return new OembedModel($decValue['url']);
-                }
+        if (is_string($value) && $decValue = json_decode($value, true)) {
+            if (isset($decValue['url'])) {
+                return new OembedModel($decValue['url']);
             }
         }
         return $value ? new OembedModel($value) : null;
