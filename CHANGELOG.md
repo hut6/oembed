@@ -1,5 +1,10 @@
 # oEmbed Changelog
 
+## 2.0.7 - 2018-04-23
+
+### Fixed
+- Fixed composer.json version
+
 ## 2.0.3 - 2017-12-20
 
 ### Added
