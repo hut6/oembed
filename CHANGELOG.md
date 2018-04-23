@@ -1,5 +1,13 @@
 # oEmbed Changelog
 
+
+## 2.0.8 - 2017-12-22
+
+### Fixed
+- Refactored past updates and fixed composer.json version
+- Added recursive function
+- Update README docs and fix bug that come up in CraftCMS 3 plugin upgrade
+
 ## 2.0.7 - 2018-04-23
 
 ### Fixed

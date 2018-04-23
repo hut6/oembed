@@ -88,7 +88,7 @@ class OembedModel extends Model
                         }
                         return $value['url']['url']['url'];
                     }
-                    return $value['url']['url'];    
+                    return $value['url']['url'];
                 }
                 return $value['url'];
             }
@@ -116,5 +116,14 @@ class OembedModel extends Model
     public function embed(array $options = [])
     {
         return Oembed::getInstance()->oembedService->embed($this->getUrl(), $options);
+    }
+
+    /**
+     * @param array $options
+     * @return string
+     */
+    public function media(array $options = [])
+    {
+        return $this->embed($options);
     }
 }
