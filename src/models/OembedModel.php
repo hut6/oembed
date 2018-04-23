@@ -46,7 +46,7 @@ class OembedModel extends Model
 
     public function __toString()
     {
-        return (string)$this->getUrl();
+        return "".$this->getUrl();
     }
 
     /**
@@ -67,25 +67,35 @@ class OembedModel extends Model
         ];
     }
 
-    /**
-     * Gets URL, also handles recursive fetching.
-     *
-     * @param mixed $value
-     * @return string
-     */
-    public function getUrl($value = null)
+    public function getUrl()
     {
-        $value = $value !== null ? $value: $this->url;
 
-        if (is_string($value) && $decValue = json_decode($value, true)) {
-            $value = $decValue;
+        $value = $this->url;
+
+        if (is_string($value)) {
+            $decValue = json_decode($value, true);
+            if($decValue) {
+                $value = $decValue;
+            }
         }
 
-        if(is_array($value) && array_key_exists('url', $value)) {
-            return $this->getUrl($value['url']) ?: '';
+        if(is_array($value)) {
+            if (isset($value['url'])) {
+                if(is_array($value['url'])) {
+                    if(is_array($value['url']['url'])) {
+                        if(is_array($value['url']['url']['url'])) {
+                            return $value['url']['url']['url']['url'];
+                        }
+                        return $value['url']['url']['url'];
+                    }
+                    return $value['url']['url'];
+                }
+                return $value['url'];
+            }
+            return null;
         }
 
-        return $value ?: '';
+        return $value ? $value : null;
     }
 
     /**
@@ -106,5 +116,14 @@ class OembedModel extends Model
     public function embed(array $options = [])
     {
         return Oembed::getInstance()->oembedService->embed($this->getUrl(), $options);
+    }
+
+    /**
+     * @param array $options
+     * @return string
+     */
+    public function media(array $options = [])
+    {
+        return $this->embed($options);
     }
 }

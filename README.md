@@ -27,11 +27,11 @@ To install the plugin, follow these instructions.
 
 To use simply call the `embed` method on your field type
 
-    {{ entry.fieldType.embed }}
+    {{ entry.fieldType.render }}
     
 We also provide option to use as a Twig variable
 
-    {{ craft.oembed.embed(url, options) }}
+    {{ craft.oembed.render(url, options) }}
     
 You can access additional media details using the examples below.
 
